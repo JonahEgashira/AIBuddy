@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		8CE73C3429C7080D00C548A9 /* AudioRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CE73C3329C7080D00C548A9 /* AudioRecorder.swift */; };
+		8CE73C3629C8671100C548A9 /* WhisperAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CE73C3529C8671100C548A9 /* WhisperAPIManager.swift */; };
+		8CE73C3829C8684C00C548A9 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CE73C3729C8684C00C548A9 /* Secrets.swift */; };
 		8CEAD21729C6DF3A00FA6B2C /* AIBuddyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CEAD21629C6DF3A00FA6B2C /* AIBuddyApp.swift */; };
 		8CEAD21929C6DF3A00FA6B2C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CEAD21829C6DF3A00FA6B2C /* ContentView.swift */; };
 		8CEAD21B29C6DF3A00FA6B2C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8CEAD21A29C6DF3A00FA6B2C /* Assets.xcassets */; };
@@ -37,6 +39,8 @@
 /* Begin PBXFileReference section */
 		8CE73C3229C6F85000C548A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		8CE73C3329C7080D00C548A9 /* AudioRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecorder.swift; sourceTree = "<group>"; };
+		8CE73C3529C8671100C548A9 /* WhisperAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhisperAPIManager.swift; sourceTree = "<group>"; };
+		8CE73C3729C8684C00C548A9 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		8CEAD21329C6DF3A00FA6B2C /* AIBuddy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AIBuddy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CEAD21629C6DF3A00FA6B2C /* AIBuddyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIBuddyApp.swift; sourceTree = "<group>"; };
 		8CEAD21829C6DF3A00FA6B2C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -103,6 +107,8 @@
 				8CEAD21A29C6DF3A00FA6B2C /* Assets.xcassets */,
 				8CE73C3329C7080D00C548A9 /* AudioRecorder.swift */,
 				8CEAD21C29C6DF3A00FA6B2C /* Preview Content */,
+				8CE73C3529C8671100C548A9 /* WhisperAPIManager.swift */,
+				8CE73C3729C8684C00C548A9 /* Secrets.swift */,
 			);
 			path = AIBuddy;
 			sourceTree = "<group>";
@@ -263,6 +269,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				8CE73C3429C7080D00C548A9 /* AudioRecorder.swift in Sources */,
+				8CE73C3829C8684C00C548A9 /* Secrets.swift in Sources */,
+				8CE73C3629C8671100C548A9 /* WhisperAPIManager.swift in Sources */,
 				8CEAD21929C6DF3A00FA6B2C /* ContentView.swift in Sources */,
 				8CEAD21729C6DF3A00FA6B2C /* AIBuddyApp.swift in Sources */,
 			);
