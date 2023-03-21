@@ -21,12 +21,6 @@ struct ContentView: View {
             }
             .padding()
             
-            Button(action: playRecording) {
-                Text("Play Recording")
-            }
-            .padding()
-            .disabled(audioRecorder.audioURL == nil)
-            
             Button(action: {
                 if let audioURL = audioRecorder.audioURL {
                     audioRecorder.stopRecording()
@@ -50,23 +44,6 @@ struct ContentView: View {
             
             Text(transcription)
                 .padding()
-        }
-    }
-    
-    // Play the recording
-    func playRecording() {
-        guard let audioURL = audioRecorder.audioURL else { return }
-        
-        do {
-            let audioSession = AVAudioSession.sharedInstance()
-            try audioSession.setCategory(.playAndRecord, mode: .default)
-            try audioSession.setActive(true)
-            
-            audioPlayer = try AVAudioPlayer(contentsOf: audioURL)
-            audioPlayer?.volume = 10.0
-            audioPlayer?.play()
-        } catch {
-            print("Error playing recording: \(error.localizedDescription)")
         }
     }
 }
