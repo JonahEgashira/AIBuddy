@@ -20,8 +20,8 @@ class AudioRecorder: ObservableObject {
         audioSession.requestRecordPermission { allowed in
             DispatchQueue.main.async {
                 if allowed {
-                    self.recordAudio()
                     self.isRecording = true
+                    self.recordAudio()
                 } else {
                     // Print an error message if the user doesn't allow recording
                     print("User denied access to recording")
@@ -53,7 +53,7 @@ class AudioRecorder: ObservableObject {
     }
 
     func stopRecording() {
-        audioRecorder?.stop()
         self.isRecording = false
+        audioRecorder?.stop()
     }
 }

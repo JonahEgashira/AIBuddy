@@ -5,45 +5,104 @@ struct ContentView: View {
     @ObservedObject private var audioRecorder = AudioRecorder()
     @State private var audioPlayer: AVAudioPlayer?
     @State private var transcription = ""
+    @State private var responseText = ""
     
     private let whisperAPIManager = WhisperAPIManager()
+    private let chatGPTAPIManager = ChatGPTAPIManager()
     
     var body: some View {
         VStack {
-            Button(action: {
-                if audioRecorder.isRecording == true {
-                    audioRecorder.stopRecording()
-                } else {
-                    audioRecorder.startRecording()
-                }
-            }) {
-                Text(audioRecorder.isRecording ? "Stop Recording" : "Start Recording")
+            Button(action: {}) {
+                Text(audioRecorder.isRecording ? "Release to Stop Recording" : "Hold to Start Recording")
             }
+            .simultaneousGesture(DragGesture(minimumDistance: 0)
+                .onChanged({ _ in
+                    if !audioRecorder.isRecording {
+                        audioRecorder.startRecording()
+                    }
+                })
+                    .onEnded({ _ in
+                        if audioRecorder.isRecording {
+                            audioRecorder.stopRecording()
+                            processAudio()
+                        }
+                    })
+            )
             .padding()
             
-            Button(action: {
-                if let audioURL = audioRecorder.audioURL {
-                    audioRecorder.stopRecording()
-                    whisperAPIManager.transcribleAudio(url: audioURL) { result in
-                        DispatchQueue.main.async {
-                            switch result {
-                            case .success(let transcribedText):
-                                self.transcription = transcribedText
-                            case .failure(let error):
-                                print("Error transcribing audio: \(error)")
-                                self.transcription = "Error transcribing audio"
-                            }
-                        }
-                    }
-                }
-            }) {
-                Text("Transcrible Audio")
-            }
-            .padding()
-            .disabled(audioRecorder.audioURL == nil || audioRecorder.isRecording)
+            //            Button(action: {
+            //                if audioRecorder.isRecording == true {
+            //                    audioRecorder.stopRecording()
+            //                } else {
+            //                    audioRecorder.startRecording()
+            //                }
+            //            }) {
+            //                Text(audioRecorder.isRecording ? "Stop Recording" : "Start Recording")
+            //            }
+            //            .padding()
+            //
+            //            Button(action: {
+            //                if let audioURL = audioRecorder.audioURL {
+            //                    audioRecorder.stopRecording()
+            //                    whisperAPIManager.transcribleAudio(url: audioURL) { result in
+            //                        DispatchQueue.main.async {
+            //                            switch result {
+            //                            case .success(let transcribedText):
+            //                                self.transcription = transcribedText
+            //
+            //                                chatGPTAPIManager.generateResponse(text: transcribedText) { chatGPTResult in
+            //                                    switch chatGPTResult {
+            //                                    case.success(let chatGPTResponse):
+            //                                        self.responseText = chatGPTResponse
+            //                                    case.failure(let chatGPTError):
+            //                                        print("ChatGPT Error: \(chatGPTError.localizedDescription)")
+            //                                    }
+            //                                }
+            //
+            //                            case .failure(let error):
+            //                                print("Error transcribing audio: \(error)")
+            //                                self.transcription = "Error transcribing audio"
+            //                            }
+            //                        }
+            //                    }
+            //                }
+            //            }) {
+            //                Text("Get response from AI")
+            //            }
+            //            .padding()
+            //            .disabled(audioRecorder.audioURL == nil || audioRecorder.isRecording)
             
             Text(transcription)
                 .padding()
+            
+            Text(responseText)
+                .padding()
+        }
+    }
+    
+    private func processAudio() {
+        if let audioURL = audioRecorder.audioURL {
+            whisperAPIManager.transcribleAudio(url: audioURL) { result in
+                DispatchQueue.main.async {
+                    switch result {
+                    case .success(let transcribedText):
+                        self.transcription = transcribedText
+                        
+                        chatGPTAPIManager.generateResponse(text: transcribedText) { chatGPTResult in
+                            switch chatGPTResult {
+                            case.success(let chatGPTResponse):
+                                self.responseText = chatGPTResponse
+                            case.failure(let chatGPTError):
+                                print("ChatGPT Error: \(chatGPTError.localizedDescription)")
+                            }
+                        }
+                        
+                    case .failure(let error):
+                        print("Error transcribing audio: \(error)")
+                        self.transcription = "Error transcribing audio"
+                    }
+                }
+            }
         }
     }
 }
