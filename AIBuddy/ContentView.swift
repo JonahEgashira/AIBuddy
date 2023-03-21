@@ -14,6 +14,9 @@ struct ContentView: View {
         VStack {
             ZStack {
                 Circle()
+                    .stroke(Color.gray.opacity(0.5), lineWidth: 4)
+                    .frame(width: 90, height: 90)
+                Circle()
                     .foregroundColor(.blue)
                     .frame(width: audioRecorder.isRecording ? 40 : 80, height: audioRecorder.isRecording ? 40 : 80)
                     .opacity(audioRecorder.isRecording ? 0 : 1)
@@ -22,6 +25,7 @@ struct ContentView: View {
                     .foregroundColor(.blue)
                     .frame(width: audioRecorder.isRecording ? 20 : 0, height: audioRecorder.isRecording ? 20 : 0)
             }
+            .padding(.bottom, 200)
             .simultaneousGesture(DragGesture(minimumDistance: 0)
                 .onChanged({ _ in
                     if !audioRecorder.isRecording {
