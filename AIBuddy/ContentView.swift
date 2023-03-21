@@ -12,8 +12,15 @@ struct ContentView: View {
     
     var body: some View {
         VStack {
-            Button(action: {}) {
-                Text(audioRecorder.isRecording ? "Release to Stop Recording" : "Hold to Start Recording")
+            ZStack {
+                Circle()
+                    .foregroundColor(.blue)
+                    .frame(width: audioRecorder.isRecording ? 40 : 80, height: audioRecorder.isRecording ? 40 : 80)
+                    .opacity(audioRecorder.isRecording ? 0 : 1)
+                
+                RoundedRectangle(cornerRadius: 5)
+                    .foregroundColor(.blue)
+                    .frame(width: audioRecorder.isRecording ? 20 : 0, height: audioRecorder.isRecording ? 20 : 0)
             }
             .simultaneousGesture(DragGesture(minimumDistance: 0)
                 .onChanged({ _ in
