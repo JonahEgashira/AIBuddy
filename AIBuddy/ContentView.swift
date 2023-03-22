@@ -12,6 +12,15 @@ struct ContentView: View {
     
     var body: some View {
         VStack {
+            Text(transcription)
+                .padding()
+                .padding(.top, 100)
+            
+            Text(responseText)
+                .padding()
+            
+            Spacer()
+            
             ZStack {
                 Circle()
                     .stroke(Color.gray.opacity(0.5), lineWidth: 4)
@@ -25,7 +34,6 @@ struct ContentView: View {
                     .foregroundColor(.blue)
                     .frame(width: audioRecorder.isRecording ? 20 : 0, height: audioRecorder.isRecording ? 20 : 0)
             }
-            .padding(.bottom, 200)
             .simultaneousGesture(DragGesture(minimumDistance: 0)
                 .onChanged({ _ in
                     if !audioRecorder.isRecording {
@@ -40,12 +48,6 @@ struct ContentView: View {
                     })
             )
             .padding()
-            
-            Text(transcription)
-                .padding()
-            
-            Text(responseText)
-                .padding()
         }
     }
     
